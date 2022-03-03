@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from '../authentication/interfaces/user';
@@ -9,7 +9,7 @@ import { AuthenticationService } from '../authentication/services/authentication
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss']
 })
-export class AccountComponent implements OnInit {
+export class AccountComponent implements OnInit, OnDestroy {
 
   currentUserSubscription!: Subscription;
   currentUser!: User | null;
@@ -35,6 +35,10 @@ export class AccountComponent implements OnInit {
     .then(() => {
       this.router.navigate(['/home']);
     }).catch(console.error);
+  }
+
+  ngOnDestroy(): void {
+    this.currentUserSubscription.unsubscribe();
   }
 
 }

@@ -1,3 +1,44 @@
-<div class="bg-white drop-shadow rounded-xl p-5 my-5">
-  <h2 class="text-indigo-600 text-xl">Profile</h2>
+<div class="bg-white drop-shadow rounded-xl p-5 my-5" *ngIf="currentUser">
+  <h2 class="text-indigo-600 text-xl mb-5">
+    <fa-icon [icon]="['fad', 'id-card']"></fa-icon>
+    <span class="ml-2">Profile</span>
+  </h2>
+
+  <div class="flex">
+    <div class="rounded-full drop-shadow bg-slate-50 h-32 w-32 mx-auto flex hover:cursor-pointer group relative">
+      <fa-icon [icon]="['fad', 'camera-retro']" class="text-3xl m-auto text-indigo-600" *ngIf="!photoUploading && !currentUser.photoURL || !photoUploading && currentUser.photoURL && currentUser.photoURL === ''"></fa-icon>
+      <img *ngIf="!photoUploading && currentUser.photoURL && currentUser.photoURL !== ''" [src]="currentUser.photoURL" [alt]="currentUser.displayName + 'profile photo'" class="w-full rounded-full">
+      <label *ngIf="!photoUploading" for="editUserProfilePhoto" class="absolute inset-0 bg-slate-800/75 rounded-full hidden group-hover:flex hover:cursor-pointer">
+        <fa-icon [icon]="['fad', 'camera-retro']" class="text-3xl m-auto text-slate-50"></fa-icon>
+      </label>
+      <input type="file" id="editUserProfilePhoto" (change)="onChangePhotoInput($event)" hidden accept="image/png, image/jpeg, image/gif">
+      <div *ngIf="photoUploading" class="absolute inset-0 bg-slate-50 flex rounded-full">
+        <fa-icon [icon]="['fad', 'spinner-third']" class="text-3xl m-auto text-indigo-600 animate-spin flex"></fa-icon>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex my-3">
+    <p class="my-auto text-bold">Username</p>
+    <p class="ml-auto my-auto">
+      <span *ngIf="!currentUser.displayName || currentUser.displayName && currentUser.displayName === ''" class="italic">no name</span>
+      <span *ngIf="currentUser.displayName && currentUser.displayName !== ''" class="italic">{{ currentUser.displayName }}</span>
+    </p>
+    <button type="button" class="ml-2 text-slate-400 hover:text-indigo-600">
+      <fa-icon [icon]="['fad', 'pen']"></fa-icon>
+    </button>
+  </div>
+
+  <hr class="border-0 h-px bg-slate-300">
+
+  <div class="flex my-3">
+    <p class="my-auto text-bold">Email</p>
+    <p class="ml-auto my-auto">
+      <span>{{ currentUser.email }}</span>
+    </p>
+    <button type="button" class="ml-2 text-slate-400 hover:text-indigo-600">
+      <fa-icon [icon]="['fad', 'pen']"></fa-icon>
+    </button>
+  </div>
+
 </div>

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { User } from 'src/app/authentication/interfaces/user';
+import { FilesService } from 'src/app/files/services/files.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -8,11 +9,38 @@ import { User } from 'src/app/authentication/interfaces/user';
 })
 export class EditProfileComponent implements OnInit {
 
-  @Input() currentUser!: User | null;
+  @Input() currentUser!: User;
 
-  constructor() { }
+  photoUploading = false;
+
+  constructor(
+    private filesService: FilesService
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  onChangePhotoInput($event: Event): void {
+    const target = <HTMLInputElement><EventTarget>$event.target;
+    const file = target && target.files ? target.files[0] : null;
+    if (!file) {
+      return;
+    }
+    this.photoUploading = true;
+    this.filesService.uploadFile(file).subscribe({
+      next: value => {
+        if (value && value.downloadURL) {
+          this.currentUser.updateProfile({photoURL: value.downloadURL})
+          .then(() => {
+            this.photoUploading = false;
+          }).catch(console.error);
+        }
+      },
+      error: console.error,
+      complete: () => {
+        this.photoUploading = false;
+      }
+    });
   }
 
 }

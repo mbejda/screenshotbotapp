@@ -1,4 +1,4 @@
-<div class="container py-10 mx-auto">
+<div class="container py-10 mx-auto" *ngIf="currentUser">
   <h1 class="text-2xl text-indigo-600 mb-5">Account</h1>
   <app-edit-profile [currentUser]="currentUser"></app-edit-profile>
   <app-edit-auth-infos [currentUser]="currentUser"></app-edit-auth-infos>

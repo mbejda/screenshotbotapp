@@ -8,11 +8,13 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import { far } from '@fortawesome/pro-regular-svg-icons';
 import { fad } from '@fortawesome/pro-duotone-svg-icons';
 import { fal } from '@fortawesome/pro-light-svg-icons';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   declarations: [
     SidebarComponent,
-    HeaderComponent
+    HeaderComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { fal } from '@fortawesome/pro-light-svg-icons';
   ],
   exports: [
     SidebarComponent,
-    HeaderComponent
+    HeaderComponent,
+    ModalComponent
   ]
 })
 export class SharedModule {
