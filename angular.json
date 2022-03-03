@@ -125,6 +125,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "lodge-fire-ng:build:production",
+            "firebaseProject": "lodge-e357e",
+            "firebaseHostingSite": "lodge-e357e"
+          }
         }
       }
     }

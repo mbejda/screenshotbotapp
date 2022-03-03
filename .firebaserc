@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "lodge-e357e": {
+      "hosting": {
+        "lodge-fire-ng": [
+          "lodge-e357e"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "lodge-e357e"
+  }
+}

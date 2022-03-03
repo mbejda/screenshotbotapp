@@ -1,0 +1,18 @@
+<p>admin works!</p>
+<div class="h-full" *ngIf="onLineStatus">
+  <app-sidebar class="sidebar w-52 block"></app-sidebar>
+  <app-header></app-header>
+  <div class="pl-52 pt-20 h-full container mx-auto">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+
+<div class="flex h-full" *ngIf="!onLineStatus">
+  <div class="m-auto flex flex-col">
+    <h1 class="display-4 text-center">Lodge</h1>
+    <!-- <fa-icon [icon]="['fas', 'wifi']" class="mx-auto text-primary fs-60 mb-1"></fa-icon> -->
+    <!-- <h2 class="fs-40 font-weight-normal text-dark text-center mb-3">No internet connection</h2>
+    <h3 class="fs-25 font-weight-normal text-primary text-center">Please check you are connected to internet</h3> -->
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="my-10 grid grid-cols-12 p-2 md:p-0">
+  <div class="bg-white drop-shadow col-span-12 md:col-start-2 md:col-span-10 lg:col-start-3 lg:col-span-8 xl:col-start-4 xl:col-span-6 rounded-xl p-5">
+    <h1 class="text-2xl text-center text-indigo-600 mb-10">Signup</h1>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmitSignupForm()">
+      <div class="flex flex-col mb-5">
+        <label for="signupEmailInput" class="ml-1">Email</label>
+        <input type="email" id="signupEmailInput" class="border rounded-md h-9 p-2 focus:outline focus:outline-indigo-500" formControlName="email">
+      </div>
+      <div class="flex flex-col mb-5">
+        <label for="signupPasswordInput" class="ml-1">Password</label>
+        <input type="password" id="signupPasswordInput" class="border rounded-md h-9 p-2 focus:outline focus:outline-indigo-500" formControlName="password">
+      </div>
+      <div class="flex flex-col mb-3">
+        <label for="signupConfirmPasswordInput" class="ml-1">Confirm password</label>
+        <input type="password" id="signupConfirmPasswordInput" class="border rounded-md h-9 p-2 focus:outline focus:outline-indigo-500" formControlName="passwordConfirm">
+      </div>
+      <div class="flex mb-3">
+        <input type="checkbox" id="signupTermsCheckInput" class="active:bg-indigo-600 my-auto" formControlName="termsCheck">
+        <label for="signupTermsCheckInput" class="ml-2">I read and accept terms and conditions</label>
+      </div>
+      <div class="flex">
+        <button type="submit" [disabled]="signupForm.invalid" class="mx-auto bg-indigo-600 text-white px-4 py-2 rounded-xl hover:bg-indigo-700 disabled:opacity-75">Signup</button>
+      </div>
+    </form>
+  </div>
+</div>
