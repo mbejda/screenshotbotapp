@@ -1,1 +1,15 @@
-<p>edit-auth-infos works!</p>
+<div class="bg-white drop-shadow rounded-xl p-5 my-5" *ngIf="currentUser">
+  <h2 class="text-indigo-600 text-xl mb-5">
+    <fa-icon [icon]="['fad', 'user-lock']"></fa-icon>
+    <span class="ml-2">Authentication</span>
+  </h2>
+
+  <div class="flex my-3">
+    <p class="my-auto text-bold">Password</p>
+    <button type="button" class="ml-auto text-slate-400 hover:text-indigo-600">
+      <span class="mr-2">Edit password</span>
+      <fa-icon [icon]="['fad', 'pen']"></fa-icon>
+    </button>
+  </div>
+
+</div>

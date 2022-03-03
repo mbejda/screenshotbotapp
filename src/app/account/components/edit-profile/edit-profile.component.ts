@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { User } from 'src/app/authentication/interfaces/user';
 import { FilesService } from 'src/app/files/services/files.service';
+import { ModalsService } from 'src/app/shared/services/modals.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -14,7 +15,8 @@ export class EditProfileComponent implements OnInit {
   photoUploading = false;
 
   constructor(
-    private filesService: FilesService
+    private filesService: FilesService,
+    private modalsService: ModalsService
   ) { }
 
   ngOnInit(): void {
@@ -41,6 +43,10 @@ export class EditProfileComponent implements OnInit {
         this.photoUploading = false;
       }
     });
+  }
+
+  onEditUsername() {
+    this.modalsService.open('editUsernameModal');
   }
 
 }

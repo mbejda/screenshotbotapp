@@ -9,6 +9,7 @@ import { ProfileDangerZoneComponent } from './components/profile-danger-zone/pro
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { far } from '@fortawesome/pro-regular-svg-icons';
 import { fad } from '@fortawesome/pro-duotone-svg-icons';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { fad } from '@fortawesome/pro-duotone-svg-icons';
   imports: [
     CommonModule,
     AccountRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    SharedModule
   ]
 })
 export class AccountModule {

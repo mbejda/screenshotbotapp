@@ -24,7 +24,7 @@
       <span *ngIf="!currentUser.displayName || currentUser.displayName && currentUser.displayName === ''" class="italic">no name</span>
       <span *ngIf="currentUser.displayName && currentUser.displayName !== ''" class="italic">{{ currentUser.displayName }}</span>
     </p>
-    <button type="button" class="ml-2 text-slate-400 hover:text-indigo-600">
+    <button type="button" class="ml-2 text-slate-400 hover:text-indigo-600" (click)="onEditUsername()">
       <fa-icon [icon]="['fad', 'pen']"></fa-icon>
     </button>
   </div>
@@ -42,3 +42,8 @@
   </div>
 
 </div>
+
+<app-modal title="Edit username" modalName="editUsernameModal" [options]="{centered: true}" modalType="action">
+  <p>Hello world</p>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium eum perferendis quam soluta. Incidunt debitis natus officiis provident sint corrupti quod! Suscipit perferendis id odio earum unde deserunt a voluptatum!</p>
+</app-modal>

@@ -1,1 +1,11 @@
-<p>profile-danger-zone works!</p>
+<div class="bg-white drop-shadow rounded-xl p-5 my-5" *ngIf="currentUser">
+  <h2 class="text-rose-600 text-xl mb-5">
+    <fa-icon [icon]="['fad', 'exclamation-triangle']"></fa-icon>
+    <span class="ml-2">Danger zone</span>
+  </h2>
+
+  <div class="flex my-3">
+    <button class="mx-auto bg-rose-600 px-4 py-2 text-white rounded-xl hover:bg-rose-700">Delete account</button>
+  </div>
+
+</div>
