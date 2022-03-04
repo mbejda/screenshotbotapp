@@ -5,7 +5,6 @@ export class CustomValidators {
   static passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password: string = control.get('password')?.value;
     const passwordConfirm: string = control.get('passwordConfirm')?.value;
-    console.log(password === passwordConfirm ? null : { NoPasswordMatch: true });
     return password === passwordConfirm ? null : { NoPasswordMatch: true };
   }
 
@@ -15,7 +14,6 @@ export class CustomValidators {
         return null;
       }
       const valid = regex.test(control.value);
-      console.log(valid ? null : error);
       return valid ? null : error;
     };
   }

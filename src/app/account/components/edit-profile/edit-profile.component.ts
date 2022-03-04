@@ -94,6 +94,7 @@ export class EditProfileComponent implements OnInit {
         this.currentUser.updateEmail(email)
         .then(() => {
           this.modalsService.dismissAll();
+          this.emailForm.reset();
         }).catch(console.error);
       }).catch(error => {
         if (error.code === 'auth/wrong-password') {
