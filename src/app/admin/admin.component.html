@@ -1,7 +1,6 @@
-<p>admin works!</p>
-<div class="h-full" *ngIf="onLineStatus">
-  <app-sidebar class="sidebar w-52 block"></app-sidebar>
+<div class="h-full relative" *ngIf="onLineStatus">
   <app-header></app-header>
+  <app-sidebar class="sidebar w-52 block"></app-sidebar>
   <div class="pl-52 pt-20 h-full container mx-auto">
     <router-outlet></router-outlet>
   </div>

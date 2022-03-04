@@ -10,6 +10,7 @@ import { fad } from '@fortawesome/pro-duotone-svg-icons';
 import { fal } from '@fortawesome/pro-light-svg-icons';
 import { ModalComponent } from './components/modal/modal.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
   ],
   imports: [
     CommonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    RouterModule
   ],
   exports: [
     SidebarComponent,

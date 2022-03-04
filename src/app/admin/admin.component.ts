@@ -9,6 +9,8 @@ export class AdminComponent implements OnInit {
 
   onLineStatus = navigator.onLine;
 
+  // currentUser
+
   constructor() { }
 
   ngOnInit(): void {
