@@ -1,1 +1,16 @@
-<p>verify-email works!</p>
+<div *ngIf="oobCode" class="container mx-auto flex h-full">
+  <div class="m-auto bg-white rounded-xl p-20 drop-shadow flex flex-col">
+
+    <ng-container *ngIf="emailVerificationLoading">
+      <fa-icon [icon]="['fad', 'spinner-third']" class="text-6xl m-auto text-indigo-600 animate-spin flex mb-5"></fa-icon>
+      <p class="text-center">Verification in progress...</p>
+    </ng-container>
+
+    <ng-container *ngIf="!emailVerificationLoading">
+      <fa-icon [icon]="['fad', 'badge-check']" class="text-6xl m-auto text-green-400 flex mb-5"></fa-icon>
+      <p class="text-center">Email verified successfully</p>
+      <p class="text-center">You will be redirected</p>
+    </ng-container>
+
+  </div>
+</div>

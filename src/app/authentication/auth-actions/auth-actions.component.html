@@ -1,1 +1,2 @@
-<p>auth-actions works!</p>
+<app-verify-email *ngIf="action && action === 'verifyEmail'"></app-verify-email>
+<app-password-reset *ngIf="action && action === 'resetPassword'"></app-password-reset>

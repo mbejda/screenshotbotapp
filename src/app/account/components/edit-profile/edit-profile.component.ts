@@ -19,6 +19,8 @@ export class EditProfileComponent implements OnInit {
   usernameForm!: FormGroup;
   emailForm!: FormGroup;
 
+  sendEmailDelay = 60;
+
   constructor(
     private filesService: FilesService,
     private modalsService: ModalsService,
@@ -106,6 +108,34 @@ export class EditProfileComponent implements OnInit {
         console.error(error);
       })
     }
+  }
+
+  onAskVerifyEmail(): void {
+    this.currentUser.sendEmailVerification().then(() => {
+      this.sendEmailDelay = 60;
+      if (this.sendEmailDelay > 0) {
+        const interval = setInterval(() => {
+          this.sendEmailDelay = this.sendEmailDelay - 1;
+          if (this.sendEmailDelay === 0) {
+            clearInterval(interval);
+          }
+        }, 1000);
+      }
+    }).catch(error => {
+      if (error.code === 'auth/too-many-requests') {
+        this.sendEmailDelay = 60;
+        if (this.sendEmailDelay > 0) {
+          const interval = setInterval(() => {
+            this.sendEmailDelay = this.sendEmailDelay - 1;
+            if (this.sendEmailDelay === 0) {
+              clearInterval(interval);
+            }
+          }, 1000);
+        }
+        return;
+      }
+      console.error(error);
+    });
   }
 
 }

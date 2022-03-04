@@ -32,7 +32,17 @@
   <hr class="border-0 h-px bg-slate-300">
 
   <div class="flex my-3">
-    <p class="my-auto text-bold">Email</p>
+    <p class="my-auto text-bold">
+      <span *ngIf="currentUser.emailVerified">
+        <span>Email</span>
+        <fa-icon [icon]="['fad', 'badge-check']" class="text-green-500 ml-2" title="Email verified"></fa-icon>
+      </span>
+      <span *ngIf="!currentUser.emailVerified">
+        <span class="text-rose-600">Email not verified! </span>
+        <span class="hover:underline hover:cursor-pointer text-slate-600 hover:text-indigo-600" *ngIf="sendEmailDelay === 60" (click)="onAskVerifyEmail()">Verify email</span>
+        <span *ngIf="sendEmailDelay < 60">Wait {{ sendEmailDelay }} seconds before sending a new email</span>
+      </span>
+    </p>
     <p class="ml-auto my-auto">
       <span>{{ currentUser.email }}</span>
     </p>
