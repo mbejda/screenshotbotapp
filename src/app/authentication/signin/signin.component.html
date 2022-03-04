@@ -3,12 +3,14 @@
     <h1 class="text-2xl text-center text-indigo-600 mb-10">Signin</h1>
     <form [formGroup]="signinForm" (ngSubmit)="onSubmitSigninForm()">
       <div class="flex flex-col mb-5">
-        <label for="signinEmailInput" class="ml-1">Email</label>
+        <label for="signinEmailInput" class="ml-1">Email *</label>
         <input type="email" id="signinEmailInput" class="border rounded-md h-9 p-2 focus:outline focus:outline-indigo-500" formControlName="email" placeholder="example@example.com">
       </div>
-      <div class="flex flex-col mb-5">
-        <label for="signinPasswordInput" class="ml-1">Password</label>
-        <input type="password" id="signinPasswordInput" class="border rounded-md h-9 p-2 focus:outline focus:outline-indigo-500" formControlName="password" placeholder="Your password here">
+      <div class="flex flex-col mb-5 relative">
+        <label for="signinPasswordInput" class="ml-1">Password *</label>
+        <input type="password" #passwordInput id="signinPasswordInput" class="border rounded-md h-9 p-2 focus:outline focus:outline-indigo-500" formControlName="password" placeholder="Your password here">
+        <fa-icon [icon]="['fad', 'eye']" class="absolute bottom-1 right-2 hover:cursor-pointer" *ngIf="passwordInput.type === 'password'" (click)="passwordInput.type = 'text'"></fa-icon>
+        <fa-icon [icon]="['fad', 'eye-slash']" class="absolute bottom-1 right-2 hover:cursor-pointer" *ngIf="passwordInput.type === 'text'" (click)="passwordInput.type = 'password'"></fa-icon>
       </div>
       <div class="flex">
         <button type="submit" class="mx-auto bg-indigo-600 text-white px-4 py-2 rounded-xl hover:bg-indigo-700 disabled:opacity-75" [disabled]="signinForm.invalid">Signin</button>
