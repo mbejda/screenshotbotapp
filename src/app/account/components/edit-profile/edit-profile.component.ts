@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/authentication/interfaces/user';
 import { FilesService } from 'src/app/files/services/files.service';
 import { ModalsService } from 'src/app/shared/services/modals.service';
@@ -14,12 +15,22 @@ export class EditProfileComponent implements OnInit {
 
   photoUploading = false;
 
+  usernameForm!: FormGroup;
+
   constructor(
     private filesService: FilesService,
-    private modalsService: ModalsService
+    private modalsService: ModalsService,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
+    this.initUsernameForm();
+  }
+
+  initUsernameForm(): void {
+    this.usernameForm = this.formBuilder.group({
+      username: ['', [Validators.required]]
+    });
   }
 
   onChangePhotoInput($event: Event): void {
@@ -45,8 +56,17 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  onEditUsername() {
+  onEditUsername(): void {
+    this.usernameForm.get('username')?.setValue(this.currentUser.displayName ? this.currentUser.displayName : '');
     this.modalsService.open('editUsernameModal');
+  }
+
+  onSubmitUsernameForm(): void {
+    const newUsername = this.usernameForm.get('username')?.value;
+    this.currentUser.updateProfile({displayName: newUsername})
+    .then(() => {
+      this.modalsService.dismissAll();
+    }).catch(console.error);
   }
 
 }

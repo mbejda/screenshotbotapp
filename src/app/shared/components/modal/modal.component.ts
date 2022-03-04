@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { filter, map, Subscription } from 'rxjs';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { filter, Subscription } from 'rxjs';
 import { ModalsService } from '../../services/modals.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { ModalsService } from '../../services/modals.service';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
 })
-export class ModalComponent implements OnInit, OnDestroy {
+export class ModalComponent implements OnInit, OnDestroy, AfterViewInit {
 
   dismissModalSubscription!: Subscription;
   openModalSubscription!: Subscription;
@@ -15,10 +15,6 @@ export class ModalComponent implements OnInit, OnDestroy {
   @Input() options!: {
     centered: boolean;
   };
-
-  @Input() modalType!: 'action' | 'danger' | 'validation'
-
-  @Input() title!: string;
 
   modalHide = true;
   modalHidden = true;
@@ -28,6 +24,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   @Input() modalName!: string;
 
   @Output() modalDismissed = new EventEmitter<void>();
+  @Output() modalOpened = new EventEmitter<void>();
 
   constructor(
     private modalsService: ModalsService
@@ -43,6 +40,16 @@ export class ModalComponent implements OnInit, OnDestroy {
     ).subscribe({
       next: () => this.openModal()
     });
+
+  }
+
+  ngAfterViewInit(): void {
+    const dismissButtons = document.querySelectorAll('[data-dismiss="modal"]');
+    dismissButtons.forEach((el) => {
+      el.addEventListener('click', () => {
+        this.dismissModal();
+      });
+    });
   }
 
   openModal(): void {
@@ -50,6 +57,7 @@ export class ModalComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.modalHidden = false;
     }, 600);
+    this.modalOpened.emit();
   }
 
   dismissModal(): void {

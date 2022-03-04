@@ -22,7 +22,7 @@
     <p class="my-auto text-bold">Username</p>
     <p class="ml-auto my-auto">
       <span *ngIf="!currentUser.displayName || currentUser.displayName && currentUser.displayName === ''" class="italic">no name</span>
-      <span *ngIf="currentUser.displayName && currentUser.displayName !== ''" class="italic">{{ currentUser.displayName }}</span>
+      <span *ngIf="currentUser.displayName && currentUser.displayName !== ''">{{ currentUser.displayName }}</span>
     </p>
     <button type="button" class="ml-2 text-slate-400 hover:text-indigo-600" (click)="onEditUsername()">
       <fa-icon [icon]="['fad', 'pen']"></fa-icon>
@@ -43,7 +43,27 @@
 
 </div>
 
-<app-modal title="Edit username" modalName="editUsernameModal" [options]="{centered: true}" modalType="action">
-  <p>Hello world</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium eum perferendis quam soluta. Incidunt debitis natus officiis provident sint corrupti quod! Suscipit perferendis id odio earum unde deserunt a voluptatum!</p>
+<app-modal modalName="editUsernameModal" [options]="{centered: true}">
+  <form [formGroup]="usernameForm" (ngSubmit)="onSubmitUsernameForm()">
+    <div class="p-5 border-b-2 flex">
+      <h5 class="text-lg my-auto text-indigo-600">Edit username</h5>
+      <button class="text-rose-600 text-xl ml-auto my-auto transition-transform ease-out duration-500 transform hover:text-rose-700 hover:rotate-90" data-dismiss="modal">
+        <fa-icon [icon]="['fad', 'times']"></fa-icon>
+      </button>
+    </div>
+    <div class="p-5">
+      <div class="flex flex-col">
+        <label for="editUsernameInput" class="ml-1">Your username</label>
+        <input type="text" id="editUsernameInput" class="border rounded-md h-9 p-2 focus:outline focus:outline-indigo-500" placeholder="Ex: John DOE" formControlName="username">
+      </div>
+    </div>
+    <div class="flex px-5 py-3 border-t-2 justify-end gap-2">
+      <button class="bg-slate-600 hover:bg-slate-700 text-white px-4 py-2 rounded-xl" type="button" data-dismiss="modal">
+        Cancel
+      </button>
+      <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl" type="submit">
+        Save
+      </button>
+    </div>
+  </form>
 </app-modal>
