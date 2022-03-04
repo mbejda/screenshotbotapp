@@ -84,4 +84,5 @@ export class AuthenticationService {
       .then(resolve).catch(reject);
     });
   }
+
 }

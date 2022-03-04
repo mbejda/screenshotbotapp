@@ -37,11 +37,19 @@ export class SignupComponent implements OnInit {
       passwordConfirm: ['', [Validators.required]],
       termsCheck: [false, [Validators.requiredTrue]]
     }, {validators: CustomValidators.passwordMatchValidator});
+
+    this.signupForm.get('password')?.valueChanges.subscribe({
+      next: val => {
+        console.log(this.signupForm.get('email')?.errors)
+      },
+      error: console.error
+    })
   }
 
   onSubmitSignupForm(): void {
     const email = this.signupForm.get('email')?.value;
     const password = this.signupForm.get('password')?.value;
+    // this.signupForm.get('password')?.hasError('hasNumber');
     this.authenticationService.signupUserWithEmailAndPassword(email, password)
     .then(() => {
       this.router.navigate(['home', 'account']);

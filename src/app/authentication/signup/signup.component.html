@@ -3,20 +3,59 @@
     <h1 class="text-2xl text-center text-indigo-600 mb-10">Signup</h1>
     <form [formGroup]="signupForm" (ngSubmit)="onSubmitSignupForm()">
       <div class="flex flex-col mb-5">
-        <label for="signupEmailInput" class="ml-1">Email</label>
-        <input type="email" id="signupEmailInput" class="border rounded-md h-9 p-2 focus:outline focus:outline-indigo-500" formControlName="email" placeholder="example@example.com">
-      </div>
-      <div class="flex flex-col mb-5">
-        <label for="signupPasswordInput" class="ml-1">Password</label>
-        <input type="password" id="signupPasswordInput" class="border rounded-md h-9 p-2 focus:outline focus:outline-indigo-500" formControlName="password" placeholder="Your password here">
+        <label for="signupEmailInput" class="ml-1 flex">
+          <span>Email *</span>
+          <span class="ml-auto mr-1 text-rose-600" *ngIf="signupForm.get('email')?.value.length > 0 && this.signupForm.get('email')?.getError('email')">
+            Must be an email address
+          </span>
+        </label>
+        <input type="email" id="signupEmailInput" class="border rounded-md h-9 p-2 focus:outline focus:outline-indigo-500" [ngClass]="{'outline outline-1 outline-rose-600 focus:outline-rose-600': signupForm.get('email')?.value.length > 0 && this.signupForm.get('email')?.getError('email')}" formControlName="email" placeholder="example@example.com">
       </div>
       <div class="flex flex-col mb-3">
-        <label for="signupConfirmPasswordInput" class="ml-1">Confirm password</label>
-        <input type="password" id="signupConfirmPasswordInput" class="border rounded-md h-9 p-2 focus:outline focus:outline-indigo-500" formControlName="passwordConfirm" placeholder="Confirm your password here">
+        <label for="signupPasswordInput" class="ml-1">Password *</label>
+        <input type="password" id="signupPasswordInput" class="border rounded-md h-9 p-2 focus:outline focus:outline-indigo-500" formControlName="password" placeholder="Your password here">
+      </div>
+      <div class="bg-slate-50 p-5 rounded-xl mb-5">
+        <ul>
+          <li [ngClass]="{'text-rose-600': signupForm.get('password')?.value.length < 8, 'text-green-600': signupForm.get('password')?.value.length >= 8}">
+            <fa-icon *ngIf="signupForm.get('password')?.value.length < 8" [icon]="['fad', 'times']"></fa-icon>
+            <fa-icon *ngIf="signupForm.get('password')?.value.length >= 8" [icon]="['fad', 'check']"></fa-icon>
+            <span class="ml-2">Must contain at least 8 characters</span>
+          </li>
+          <li [ngClass]="{'text-rose-600': signupForm.get('password')?.value.length === 0 || signupForm.get('password')?.getError('hasSpecialCharacters'), 'text-green-600': signupForm.get('password')?.value.length > 0 && !signupForm.get('password')?.getError('hasSpecialCharacters')}">
+            <fa-icon *ngIf="signupForm.get('password')?.value.length === 0 || signupForm.get('password')?.getError('hasSpecialCharacters')" [icon]="['fad', 'times']"></fa-icon>
+            <fa-icon *ngIf="signupForm.get('password')?.value.length > 0 && !signupForm.get('password')?.getError('hasSpecialCharacters')" [icon]="['fad', 'check']"></fa-icon>
+            <span class="ml-2">Must contain special characters</span>
+          </li>
+          <li [ngClass]="{'text-rose-600': signupForm.get('password')?.value.length === 0 || signupForm.get('password')?.getError('hasNumber'), 'text-green-600': signupForm.get('password')?.value.length > 0 && !signupForm.get('password')?.getError('hasNumber')}">
+            <fa-icon *ngIf="signupForm.get('password')?.value.length === 0 || signupForm.get('password')?.getError('hasNumber')" [icon]="['fad', 'times']"></fa-icon>
+            <fa-icon *ngIf="signupForm.get('password')?.value.length > 0 && !signupForm.get('password')?.getError('hasNumber')" [icon]="['fad', 'check']"></fa-icon>
+            <span class="ml-2">Must contain numbers</span>
+          </li>
+          <li [ngClass]="{'text-rose-600': signupForm.get('password')?.value.length === 0 || signupForm.get('password')?.getError('hasCapitalCase'), 'text-green-600': signupForm.get('password')?.value.length > 0 && !signupForm.get('password')?.getError('hasCapitalCase')}">
+            <fa-icon *ngIf="signupForm.get('password')?.value.length === 0 || signupForm.get('password')?.getError('hasCapitalCase')" [icon]="['fad', 'times']"></fa-icon>
+            <fa-icon *ngIf="signupForm.get('password')?.value.length > 0 && !signupForm.get('password')?.getError('hasCapitalCase')" [icon]="['fad', 'check']"></fa-icon>
+            <span class="ml-2">Must containe uppercase characters</span>
+          </li>
+          <li [ngClass]="{'text-rose-600': signupForm.get('password')?.value.length === 0 || signupForm.get('password')?.getError('hasSmallCase'), 'text-green-600': signupForm.get('password')?.value.length > 0 && !signupForm.get('password')?.getError('hasSmallCase')}">
+            <fa-icon *ngIf="signupForm.get('password')?.value.length === 0 || signupForm.get('password')?.getError('hasSmallCase')" [icon]="['fad', 'times']"></fa-icon>
+            <fa-icon *ngIf="signupForm.get('password')?.value.length > 0 && !signupForm.get('password')?.getError('hasSmallCase')" [icon]="['fad', 'check']"></fa-icon>
+            <span class="ml-2">Must contain lowercase characters</span>
+          </li>
+        </ul>
+      </div>
+      <div class="flex flex-col mb-3">
+        <label for="signupConfirmPasswordInput" class="ml-1 flex">
+          <span>Confirm password *</span>
+          <small class="ml-auto mr-1 text-rose-600" *ngIf="signupForm.get('passwordConfirm')?.value.length > 0 && this.signupForm.getError('NoPasswordMatch')">
+            Must match the password
+          </small>
+        </label>
+        <input type="password" id="signupConfirmPasswordInput" class="border rounded-md h-9 p-2 focus:outline focus:outline-indigo-500" [ngClass]="{'outline outline-1 outline-rose-600 focus:outline-rose-600': signupForm.get('passwordConfirm')?.value.length > 0 && this.signupForm.getError('NoPasswordMatch')}" formControlName="passwordConfirm" placeholder="Confirm your password here">
       </div>
       <div class="flex mb-3">
         <input type="checkbox" id="signupTermsCheckInput" class="active:bg-indigo-600 my-auto" formControlName="termsCheck">
-        <label for="signupTermsCheckInput" class="ml-2">I read and accept terms and conditions</label>
+        <label for="signupTermsCheckInput" class="ml-2">I read and accept terms and conditions *</label>
       </div>
       <div class="flex">
         <button type="submit" [disabled]="signupForm.invalid" class="mx-auto bg-indigo-600 text-white px-4 py-2 rounded-xl hover:bg-indigo-700 disabled:opacity-75">Signup</button>

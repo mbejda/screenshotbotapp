@@ -56,7 +56,7 @@ export class ModalComponent implements OnInit, OnDestroy, AfterViewInit {
     this.modalHide = false;
     setTimeout(() => {
       this.modalHidden = false;
-    }, 600);
+    }, 350);
     this.modalOpened.emit();
   }
 
@@ -64,7 +64,7 @@ export class ModalComponent implements OnInit, OnDestroy, AfterViewInit {
     this.modalHidden = true;
     setTimeout(() => {
       this.modalHide = true;
-    }, 600);
+    }, 350);
     this.modalDismissed.emit();
   }
 
