@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/authentication/interfaces/user';
+import { AuthenticationService } from 'src/app/authentication/services/authentication.service';
 import { FilesService } from 'src/app/files/services/files.service';
 import { ModalsService } from 'src/app/shared/services/modals.service';
 
@@ -16,20 +17,30 @@ export class EditProfileComponent implements OnInit {
   photoUploading = false;
 
   usernameForm!: FormGroup;
+  emailForm!: FormGroup;
 
   constructor(
     private filesService: FilesService,
     private modalsService: ModalsService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authenticationService: AuthenticationService
   ) { }
 
   ngOnInit(): void {
     this.initUsernameForm();
+    this.initEmailForm();
   }
 
   initUsernameForm(): void {
     this.usernameForm = this.formBuilder.group({
       username: ['', [Validators.required]]
+    });
+  }
+
+  initEmailForm(): void {
+    this.emailForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
     });
   }
 
@@ -67,6 +78,33 @@ export class EditProfileComponent implements OnInit {
     .then(() => {
       this.modalsService.dismissAll();
     }).catch(console.error);
+  }
+
+  onEditEmail(): void {
+    this.emailForm.get('email')?.setValue(this.currentUser.email);
+    this.modalsService.open('editEmailModal');
+  }
+
+  onSubmitEmailForm(): void {
+    const email = this.emailForm.get('email')?.value;
+    const password = this.emailForm.get('password')?.value;
+    if (this.currentUser.email) {
+      this.authenticationService.signinUserWithEmailAndPassword(this.currentUser.email, password)
+      .then(() => {
+        this.currentUser.updateEmail(email)
+        .then(() => {
+          this.modalsService.dismissAll();
+        }).catch(console.error);
+      }).catch(error => {
+        if (error.code === 'auth/wrong-password') {
+          alert('Wrong password');
+        }
+        if (error.code === 'auth/user-not-found') {
+          alert('User not found');
+        }
+        console.error(error);
+      })
+    }
   }
 
 }
