@@ -9,12 +9,14 @@ import { far } from '@fortawesome/pro-regular-svg-icons';
 import { fad } from '@fortawesome/pro-duotone-svg-icons';
 import { fal } from '@fortawesome/pro-light-svg-icons';
 import { ModalComponent } from './components/modal/modal.component';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
 
 @NgModule({
   declarations: [
     SidebarComponent,
     HeaderComponent,
-    ModalComponent
+    ModalComponent,
+    DropdownComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { ModalComponent } from './components/modal/modal.component';
   exports: [
     SidebarComponent,
     HeaderComponent,
-    ModalComponent
+    ModalComponent,
+    DropdownComponent
   ]
 })
 export class SharedModule {

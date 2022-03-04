@@ -1,11 +1,31 @@
 <nav class="p-5 drop-shadow-md flex bg-white">
   <a href="#" class="text-2xl text-indigo-600">Lodge</a>
   <ul class="ml-auto my-auto list-none flex gap-4">
-    <li class="my-auto">
-      <a [routerLink]="['auth', 'signin']">Signin</a>
-    </li>
-    <li class="my-auto">
-      <a [routerLink]="['auth', 'signup']" class="px-4 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">Signup</a>
-    </li>
+    <ng-container *ngIf="!currentUser">
+      <li class="my-auto">
+        <a [routerLink]="['auth', 'signin']">Signin</a>
+      </li>
+      <li class="my-auto">
+        <a [routerLink]="['auth', 'signup']" class="px-4 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">Signup</a>
+      </li>
+    </ng-container>
+    <ng-container *ngIf="currentUser">
+      <app-dropdown id="navbarDropdown">
+        <li class="my-auto relative">
+          <a data-toggle="dropdown" class="hover:cursor-pointer">
+            <span>Admin</span>
+            <fa-icon [icon]="['fad', 'caret-down']" class="ml-2"></fa-icon>
+          </a>
+          <ul class="list-none absolute bg-white border border-slate-300 rounded-xl py-2 -right-1.5 hidden" aria-labelledby="dropdown">
+            <li class="py-1 px-4 hover:cursor-pointer hover:bg-slate-100">
+              <a [routerLink]="['/home', 'account']">Account</a>
+            </li>
+            <li class="py-1 px-4 hover:cursor-pointer hover:bg-slate-100">
+              <a  [routerLink]="['/admin']">Dashboard</a>
+            </li>
+          </ul>
+        </li>
+      </app-dropdown>
+    </ng-container>
   </ul>
 </nav>
