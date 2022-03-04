@@ -11,9 +11,11 @@
         </label>
         <input type="email" id="signupEmailInput" class="border rounded-md h-9 p-2 focus:outline focus:outline-indigo-500" [ngClass]="{'outline outline-1 outline-rose-600 focus:outline-rose-600': signupForm.get('email')?.value.length > 0 && this.signupForm.get('email')?.getError('email')}" formControlName="email" placeholder="example@example.com">
       </div>
-      <div class="flex flex-col mb-3">
+      <div class="flex flex-col mb-3 relative">
         <label for="signupPasswordInput" class="ml-1">Password *</label>
-        <input type="password" id="signupPasswordInput" class="border rounded-md h-9 p-2 focus:outline focus:outline-indigo-500" formControlName="password" placeholder="Your password here">
+        <input type="password" #passwordInput id="signupPasswordInput" class="border rounded-md h-9 p-2 focus:outline focus:outline-indigo-500" formControlName="password" placeholder="Your password here">
+        <fa-icon [icon]="['fad', 'eye']" class="absolute bottom-1 right-2 hover:cursor-pointer" *ngIf="passwordInput.type === 'password'" (click)="passwordInput.type = 'text'"></fa-icon>
+        <fa-icon [icon]="['fad', 'eye-slash']" class="absolute bottom-1 right-2 hover:cursor-pointer" *ngIf="passwordInput.type === 'text'" (click)="passwordInput.type = 'password'"></fa-icon>
       </div>
       <div class="bg-slate-50 p-5 rounded-xl mb-5">
         <ul>
@@ -44,14 +46,16 @@
           </li>
         </ul>
       </div>
-      <div class="flex flex-col mb-3">
+      <div class="flex flex-col mb-3 relative">
         <label for="signupConfirmPasswordInput" class="ml-1 flex">
           <span>Confirm password *</span>
           <small class="ml-auto mr-1 text-rose-600" *ngIf="signupForm.get('passwordConfirm')?.value.length > 0 && this.signupForm.getError('NoPasswordMatch')">
             Must match the password
           </small>
         </label>
-        <input type="password" id="signupConfirmPasswordInput" class="border rounded-md h-9 p-2 focus:outline focus:outline-indigo-500" [ngClass]="{'outline outline-1 outline-rose-600 focus:outline-rose-600': signupForm.get('passwordConfirm')?.value.length > 0 && this.signupForm.getError('NoPasswordMatch')}" formControlName="passwordConfirm" placeholder="Confirm your password here">
+        <input type="password" #confirmPasswordInput id="signupConfirmPasswordInput" class="border rounded-md h-9 p-2 focus:outline focus:outline-indigo-500" [ngClass]="{'outline outline-1 outline-rose-600 focus:outline-rose-600': signupForm.get('passwordConfirm')?.value.length > 0 && this.signupForm.getError('NoPasswordMatch')}" formControlName="passwordConfirm" placeholder="Confirm your password here">
+        <fa-icon [icon]="['fad', 'eye']" class="absolute bottom-1 right-2 hover:cursor-pointer" *ngIf="confirmPasswordInput.type === 'password'" (click)="confirmPasswordInput.type = 'text'"></fa-icon>
+        <fa-icon [icon]="['fad', 'eye-slash']" class="absolute bottom-1 right-2 hover:cursor-pointer" *ngIf="confirmPasswordInput.type === 'text'" (click)="confirmPasswordInput.type = 'password'"></fa-icon>
       </div>
       <div class="flex mb-3">
         <input type="checkbox" id="signupTermsCheckInput" class="active:bg-indigo-600 my-auto" formControlName="termsCheck">
